@@ -1,9 +1,7 @@
 #!/bin/sh
 
 echo starting services
-systemctl daemon-reload
 for service in $NODE_SERVICES; do
 	echo "activating service $service"
-	systemctl enable $service
-	systemctl --no-block start $service
+	service $service restart
 done

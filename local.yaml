@@ -1,0 +1,8 @@
+parameters:
+  ssh_key_name: phil_key
+  external_network_id: public
+  internal_network_id: private
+  server_image: UbuntuWithDocker2
+  server_flavor: m1.small
+  swarm_token: 0a41b0d4c89af9088a6f321fda74e5cb
+

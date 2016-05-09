@@ -1,0 +1,51 @@
+heat_template_version: 2015-04-30
+
+description: A simple auto scaling group.  
+
+parameters:
+
+  server_image:
+    type: string
+    default: UbuntuWithDocker2
+    description: glance image used to boot the server
+
+  server_flavor:
+    type: string
+    default: m1.small
+    description: flavor to use when booting the server
+
+  ssh_key_name:
+    type: string
+    description: name of ssh key to be provisioned on our server
+    default: phil_key
+
+  external_network_id:
+    type: string
+    description: uuid of a network to use for floating ip addresses
+
+  internal_network_id:
+    type: string
+    description: Network from which to allocate fixed addresses.
+
+  swarm_token:
+    type: string
+    description: token of swarm cluster to build
+
+
+resources:  
+  group:
+    type: OS::Heat::AutoScalingGroup
+    properties:
+      cooldown: 60
+      desired_capacity: 2
+      max_size: 5
+      min_size: 1
+      resource:
+        type: swarmnode.yaml
+        properties:
+          server_image: { get_param: server_image }
+          server_flavor: { get_param: server_flavor }
+          ssh_key_name: { get_param: ssh_key_name }
+          external_network_id: { get_param: external_network_id }
+          internal_network_id: { get_param: internal_network_id }
+          swarm_token: { get_param: swarm_token }

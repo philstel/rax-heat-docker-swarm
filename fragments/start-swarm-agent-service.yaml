@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Running boot script for $NODE_IP with Docker Swarm Token $SWARM_TOKEN"
+docker run -d swarm join --addr=$NODE_IP:2376 token://$SWARM_TOKEN
